@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+    localhost:
+        image: "postgres:9.6-alpine"
+        container_name: localhost
+        volumes:
+         - db-data:/var/lib/postgresql/data
+        ports:
+         - 5432:5432
+        environment:
+         - POSTGRES_DB=TestSurveyor
+         - POSTGRES_USER=postgres
+         - POSTGRES_PASSWORD=postgres
+         
+    db-pgadmin4:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: tes@gmail.com
+            PGADMIN_DEFAULT_PASSWORD: 123456
+        ports:
+         - "8889:80"
+         
+    discovery-server:
+        build: ./discovery-server
+        container_name: discovery-server
+        ports:
+         - 8761:8761
+  
+         
+volumes:
+    db-data:
+            
